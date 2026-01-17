@@ -1,0 +1,62 @@
+.toggle {
+    position: fixed;
+    top: 1.5rem;
+    right: 1.5rem;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: none;
+    background: var(--bg-card);
+    box-shadow: var(--shadow-md);
+    cursor: pointer;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.toggle:hover {
+    transform: scale(1.1);
+    box-shadow: var(--shadow-lg);
+}
+
+.toggle:active {
+    transform: scale(0.95);
+}
+
+.iconContainer {
+    position: relative;
+    width: 24px;
+    height: 24px;
+}
+
+.icon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 24px;
+    height: 24px;
+    transition: opacity 0.3s ease, transform 0.5s ease;
+    color: var(--text-primary);
+}
+
+.sun {
+    opacity: 0;
+    transform: rotate(-90deg) scale(0.5);
+}
+
+.sun.active {
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
+}
+
+.moon {
+    opacity: 0;
+    transform: rotate(90deg) scale(0.5);
+}
+
+.moon.active {
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
+}

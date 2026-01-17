@@ -1,0 +1,250 @@
+.sosButton {
+    position: relative;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+    color: white;
+    font-weight: 800;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(239, 68, 68, 0.4);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    overflow: visible;
+}
+
+.sosButton:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 30px rgba(239, 68, 68, 0.5);
+}
+
+.sosButton:active {
+    transform: scale(0.95);
+}
+
+/* Sizes */
+.small {
+    width: 50px;
+    height: 50px;
+    font-size: 0.875rem;
+}
+
+.medium {
+    width: 65px;
+    height: 65px;
+    font-size: 1rem;
+}
+
+.large {
+    width: 80px;
+    height: 80px;
+    font-size: 1.25rem;
+}
+
+.text {
+    position: relative;
+    z-index: 2;
+}
+
+.pulse {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 50%;
+    border: 3px solid rgba(239, 68, 68, 0.6);
+    animation: sosPulse 2s ease-out infinite;
+}
+
+@keyframes sosPulse {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(1.8);
+        opacity: 0;
+    }
+}
+
+/* Modal Content */
+.confirmContent {
+    text-align: center;
+}
+
+.warningIcon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 1rem;
+    background: rgba(245, 158, 11, 0.15);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #f59e0b;
+}
+
+.confirmText {
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+}
+
+.buttonGroup {
+    display: flex;
+    gap: 1rem;
+}
+
+.cancelBtn {
+    flex: 1;
+    padding: 0.875rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius-md);
+    background: transparent;
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.cancelBtn:hover {
+    background: var(--bg-card);
+    border-color: var(--text-muted);
+}
+
+.confirmBtn {
+    flex: 1;
+    padding: 0.875rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: var(--radius-md);
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+    color: white;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 4px 14px rgba(239, 68, 68, 0.4);
+}
+
+.confirmBtn:hover {
+    box-shadow: 0 6px 20px rgba(239, 68, 68, 0.5);
+    transform: translateY(-2px);
+}
+
+/* Emergency Active State */
+.emergencyActive {
+    text-align: center;
+    padding: 1rem 0;
+}
+
+.emergencyIcon {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto 1.5rem;
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    animation: bounceIn 0.6s ease;
+}
+
+@keyframes bounceIn {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+
+    50% {
+        transform: scale(1.2);
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.emergencyTitle {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--success);
+    margin-bottom: 0.5rem;
+}
+
+.emergencyText {
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+}
+
+.loadingBar {
+    width: 100%;
+    height: 6px;
+    background: var(--border-color);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.loadingProgress {
+    height: 100%;
+    background: linear-gradient(90deg, #10b981, #0ea5e9, #10b981);
+    background-size: 200% 100%;
+    animation: loadingMove 2s linear infinite;
+    width: 100%;
+}
+
+@keyframes loadingMove {
+    0% {
+        background-position: 100% 0;
+    }
+
+    100% {
+        background-position: -100% 0;
+    }
+}
+
+/* Alarm Indicator */
+.alarmIndicator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    padding: 0.5rem 1rem;
+    background: rgba(239, 68, 68, 0.1);
+    border-radius: var(--radius-md);
+    color: var(--danger);
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.alarmDot {
+    width: 10px;
+    height: 10px;
+    background: var(--danger);
+    border-radius: 50%;
+    animation: alarmBlink 0.5s ease-in-out infinite;
+}
+
+@keyframes alarmBlink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.3;
+    }
+}
+
+.alarmWarning {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    background: rgba(245, 158, 11, 0.1);
+    border-radius: var(--radius-sm);
+}

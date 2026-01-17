@@ -1,0 +1,350 @@
+.container {
+    min-height: 100vh;
+    background: var(--bg-primary);
+}
+
+/* Header */
+.header {
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--border-color);
+    position: sticky;
+    top: 0;
+    z-index: 40;
+}
+
+.headerContent {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1.5rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.greeting h1 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin: 0 0 0.25rem;
+    color: var(--text-primary);
+}
+
+.greeting p {
+    font-size: 0.9375rem;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+.logoutBtn {
+    padding: 0.625rem 1.25rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.logoutBtn:hover {
+    color: var(--danger);
+    border-color: var(--danger);
+}
+
+.headerActions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.profileBtn {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #10b981 0%, #06b6d4 100%);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+}
+
+.profileBtn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+}
+
+.profileAvatar {
+    color: white;
+    font-size: 1.125rem;
+    font-weight: 700;
+}
+
+/* Main */
+.main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.main.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.sectionTitle {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0 0 1rem;
+}
+
+/* Quick Book Section */
+.quickBookSection {
+    margin-bottom: 2rem;
+}
+
+.quickBookCard {
+    cursor: pointer;
+    padding: 2rem !important;
+}
+
+.quickBookContent {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.quickBookIcon {
+    width: 80px;
+    height: 80px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: var(--radius-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.quickBookText {
+    flex: 1;
+}
+
+.quickBookText h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0 0 0.25rem;
+}
+
+.quickBookText p {
+    font-size: 0.9375rem;
+    opacity: 0.8;
+    margin: 0;
+}
+
+.quickBookArrow {
+    width: 48px;
+    height: 48px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s;
+}
+
+.quickBookCard:hover .quickBookArrow {
+    transform: translateX(4px);
+}
+
+/* Features Grid */
+.featuresSection {
+    margin-bottom: 2rem;
+}
+
+.featuresGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+}
+
+.featureCard {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    cursor: pointer;
+    position: relative;
+    padding: 1.5rem !important;
+    animation: fadeInUp 0.5s ease forwards;
+    opacity: 0;
+}
+
+.featureCard:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.featureCard:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.featureIcon {
+    width: 56px;
+    height: 56px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.featureContent {
+    flex: 1;
+}
+
+.featureContent h3 {
+    font-size: 1.0625rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0 0 0.25rem;
+}
+
+.featureContent p {
+    font-size: 0.8125rem;
+    color: var(--text-muted);
+    margin: 0;
+    line-height: 1.4;
+}
+
+.featureArrow {
+    color: var(--text-muted);
+    transition: transform 0.2s, color 0.2s;
+}
+
+.featureCard:hover .featureArrow {
+    color: var(--accent-primary);
+    transform: translateX(4px);
+}
+
+/* Safety Section */
+.safetySection {
+    margin-bottom: 2rem;
+}
+
+.safetyGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+}
+
+.safetyCard {
+    text-align: center;
+}
+
+.safetyIcon {
+    font-size: 2rem;
+    margin-bottom: 0.75rem;
+}
+
+.safetyCard h4 {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0 0 0.25rem;
+}
+
+.safetyCard p {
+    font-size: 0.8125rem;
+    color: var(--text-muted);
+    margin: 0;
+}
+
+/* SOS Section */
+.sosSection {
+    margin-bottom: 2rem;
+}
+
+.sosCard {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.05) 0%, rgba(239, 68, 68, 0.02) 100%);
+    border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+.sosContent {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+}
+
+.sosInfo h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--danger);
+    margin: 0 0 0.5rem;
+}
+
+.sosInfo p {
+    color: var(--text-secondary);
+    margin: 0;
+    max-width: 400px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .featuresGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .safetyGrid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 640px) {
+    .headerContent {
+        padding: 1rem 1.5rem;
+    }
+
+    .greeting h1 {
+        font-size: 1.5rem;
+    }
+
+    .main {
+        padding: 1.5rem;
+    }
+
+    .quickBookContent {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+    }
+
+    .quickBookArrow {
+        display: none;
+    }
+
+    .sosContent {
+        flex-direction: column;
+        text-align: center;
+        gap: 1.5rem;
+    }
+
+    .sosInfo p {
+        max-width: none;
+    }
+}

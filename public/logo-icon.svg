@@ -1,0 +1,23 @@
+<svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Outer circle ring -->
+  <path d="M50 5 C75 5 95 25 95 50 C95 75 75 95 50 95 C25 95 5 75 5 50 C5 25 25 5 50 5" 
+        stroke="#2E86DE" stroke-width="6" fill="none" stroke-linecap="round"/>
+  
+  <!-- Blue figure (left) -->
+  <circle cx="35" cy="28" r="8" fill="#2E86DE"/>
+  <path d="M35 38 C20 42 18 55 18 65 C18 68 20 70 23 70 L35 70 L35 55 L40 50 L35 45 L35 38Z" 
+        fill="#2E86DE"/>
+  
+  <!-- Orange figure (right) -->
+  <circle cx="65" cy="28" r="8" fill="#F39C12"/>
+  <path d="M65 38 C80 42 82 55 82 65 C82 68 80 70 77 70 L65 70 L65 55 L60 50 L65 45 L65 38Z" 
+        fill="#F39C12"/>
+  
+  <!-- Handshake (center) -->
+  <path d="M40 50 L50 55 L60 50" 
+        stroke="#2E86DE" stroke-width="4" stroke-linecap="round" fill="none"/>
+  
+  <!-- Connection to bodies -->
+  <path d="M35 55 L40 50" stroke="#2E86DE" stroke-width="3" stroke-linecap="round"/>
+  <path d="M65 55 L60 50" stroke="#F39C12" stroke-width="3" stroke-linecap="round"/>
+</svg>

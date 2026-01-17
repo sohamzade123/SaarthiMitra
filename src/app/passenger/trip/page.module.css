@@ -1,0 +1,771 @@
+.container {
+    min-height: 100vh;
+    background: var(--bg-primary);
+}
+
+.header {
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--border-color);
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    position: sticky;
+    top: 0;
+    z-index: 40;
+}
+
+.backBtn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.backBtn:hover {
+    color: var(--text-primary);
+    transform: translateX(-4px);
+}
+
+.header h1 {
+    flex: 1;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.main {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 1.5rem;
+}
+
+/* Status Card */
+.statusCard {
+    margin-bottom: 1.5rem;
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.statusContent {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.statusIcon {
+    width: 60px;
+    height: 60px;
+    background: var(--bg-secondary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pulsingDot {
+    width: 20px;
+    height: 20px;
+    background: var(--accent-primary);
+    border-radius: 50%;
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    50% {
+        transform: scale(1.3);
+        opacity: 0.7;
+    }
+}
+
+.statusIconSuccess {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+.statusText h3 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0 0 0.25rem;
+}
+
+.statusText p {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    margin: 0;
+}
+
+/* Trip In Progress */
+.tripInProgress {
+    padding: 0.5rem 0;
+}
+
+.tripHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+}
+
+.tripLabel {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.tripProgress {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--accent-primary);
+}
+
+.progressBar {
+    height: 8px;
+    background: var(--border-color);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.progressFill {
+    height: 100%;
+    background: var(--accent-gradient);
+    border-radius: 4px;
+    transition: width 0.3s ease;
+}
+
+/* Map Section */
+.mapSection {
+    margin-bottom: 1.5rem;
+    position: relative;
+}
+
+.geoFenceIndicator {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    background: rgba(16, 185, 129, 0.9);
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border-radius: var(--radius-md);
+    z-index: 10;
+}
+
+.geoFenceIcon {
+    display: flex;
+}
+
+/* Driver Card */
+.driverCard {
+    margin-bottom: 1rem;
+}
+
+.driverHeader {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.75rem;
+}
+
+.driverAvatar {
+    width: 48px;
+    height: 48px;
+    background: var(--accent-gradient);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+.driverInfo {
+    flex: 1;
+}
+
+.driverInfo h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0 0 0.25rem;
+}
+
+.driverRating {
+    font-size: 0.8125rem;
+    color: var(--text-muted);
+}
+
+.callBtn {
+    width: 44px;
+    height: 44px;
+    background: rgba(16, 185, 129, 0.15);
+    color: var(--success);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.callBtn:hover {
+    background: var(--success);
+    color: white;
+}
+
+.vehicleInfo {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.8125rem;
+    color: var(--text-secondary);
+}
+
+.vehicleNumber {
+    padding: 0.25rem 0.5rem;
+    background: var(--bg-secondary);
+    border-radius: var(--radius-sm);
+    font-family: monospace;
+}
+
+/* Trip Details Card */
+.tripDetailsCard {
+    margin-bottom: 1rem;
+}
+
+.detailsTitle {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0 0 1rem;
+}
+
+.locationsList {
+    margin-bottom: 1rem;
+}
+
+.locationItem {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+}
+
+.locationDot {
+    width: 12px;
+    height: 12px;
+    background: var(--accent-primary);
+    border-radius: 50%;
+    margin-top: 0.25rem;
+}
+
+.locationDotEnd {
+    width: 12px;
+    height: 12px;
+    background: var(--success);
+    border-radius: 50%;
+    margin-top: 0.25rem;
+}
+
+.locationLine {
+    width: 2px;
+    height: 24px;
+    margin-left: 5px;
+    background: repeating-linear-gradient(180deg,
+            var(--text-muted),
+            var(--text-muted) 4px,
+            transparent 4px,
+            transparent 8px);
+}
+
+.locationContent {
+    flex: 1;
+}
+
+.locationLabel {
+    display: block;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.locationName {
+    font-size: 0.875rem;
+    color: var(--text-primary);
+}
+
+.tripMeta {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.metaItem {
+    text-align: center;
+}
+
+.metaLabel {
+    display: block;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.25rem;
+}
+
+.metaValue {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+/* Share Card */
+.shareCard {
+    margin-bottom: 1rem;
+}
+
+.shareContent {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.shareContent h4 {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0 0 0.25rem;
+}
+
+.shareContent p {
+    font-size: 0.8125rem;
+    color: var(--text-muted);
+    margin: 0;
+}
+
+.shareBtn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.625rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--accent-primary);
+    background: rgba(14, 165, 233, 0.1);
+    border: 1px solid var(--accent-primary);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.shareBtn:hover {
+    background: var(--accent-primary);
+    color: white;
+}
+
+/* Deviation Modal */
+.deviationModal {
+    text-align: center;
+}
+
+.deviationIcon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 1rem;
+    background: rgba(245, 158, 11, 0.15);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #f59e0b;
+}
+
+.deviationModal h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #f59e0b;
+    margin: 0 0 0.5rem;
+}
+
+.deviationModal p {
+    color: var(--text-secondary);
+    margin: 0 0 1.5rem;
+    line-height: 1.6;
+}
+
+.deviationActions {
+    display: flex;
+    gap: 1rem;
+}
+
+.dismissBtn {
+    flex: 1;
+    padding: 0.875rem;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.dismissBtn:hover {
+    background: var(--bg-secondary);
+}
+
+.sosAlertBtn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.875rem;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: white;
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+    border: none;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.sosAlertBtn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+    .header {
+        padding: 1rem 1.5rem;
+    }
+
+    .main {
+        padding: 1rem;
+    }
+
+    .deviationActions {
+        flex-direction: column;
+    }
+}
+
+/* Geo-Fencing Safety Card */
+.geoFenceCard {
+    margin-bottom: 1.5rem;
+    animation: fadeIn 0.5s ease;
+}
+
+.geoFenceCard.safe {
+    border-color: var(--success);
+}
+
+.geoFenceCard.warning {
+    border-color: #f59e0b;
+    background: rgba(245, 158, 11, 0.05);
+}
+
+.geoFenceCard.danger {
+    border-color: var(--danger);
+    background: rgba(239, 68, 68, 0.05);
+}
+
+.geoFenceHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.geoFenceTitle {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.geoFenceStatusDot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.geoFenceStatusDot.safe {
+    background: var(--success);
+}
+
+.geoFenceStatusDot.warning {
+    background: #f59e0b;
+    animation: warningBlink 1s ease-in-out infinite;
+}
+
+.geoFenceStatusDot.danger {
+    background: var(--danger);
+    animation: dangerBlink 0.5s ease-in-out infinite;
+}
+
+@keyframes warningBlink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.4;
+    }
+}
+
+@keyframes dangerBlink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.3;
+    }
+}
+
+.geoFenceStatusText {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+}
+
+.geoFenceStatusText.safe {
+    background: rgba(16, 185, 129, 0.15);
+    color: var(--success);
+}
+
+.geoFenceStatusText.warning {
+    background: rgba(245, 158, 11, 0.15);
+    color: #f59e0b;
+}
+
+.geoFenceStatusText.danger {
+    background: rgba(239, 68, 68, 0.15);
+    color: var(--danger);
+}
+
+.safetyMetrics {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+}
+
+.safetyMetric {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.metricIcon {
+    font-size: 1.5rem;
+}
+
+.metricInfo {
+    display: flex;
+    flex-direction: column;
+}
+
+.metricLabel {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.metricValue {
+    font-size: 0.9375rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    transition: color 0.3s;
+}
+
+.speedAlert {
+    color: var(--danger) !important;
+    animation: speedPulse 0.5s ease-in-out;
+}
+
+@keyframes speedPulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+}
+
+/* Geo-fence indicator states */
+.geoFenceIndicator.safe {
+    background: rgba(16, 185, 129, 0.9);
+}
+
+.geoFenceIndicator.warning {
+    background: rgba(245, 158, 11, 0.9);
+    animation: indicatorBlink 1s ease-in-out infinite;
+}
+
+.geoFenceIndicator.danger {
+    background: rgba(239, 68, 68, 0.9);
+    animation: indicatorBlink 0.5s ease-in-out infinite;
+}
+
+@keyframes indicatorBlink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.6;
+    }
+}
+
+/* Emergency Contacts Card */
+.emergencyContactsCard {
+    margin-bottom: 1rem;
+}
+
+.contactsSubtitle {
+    font-size: 0.8125rem;
+    color: var(--text-muted);
+    margin: -0.5rem 0 1rem;
+}
+
+.contactsList {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.contactItem {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    background: var(--bg-secondary);
+    border-radius: var(--radius-md);
+}
+
+.contactAvatar {
+    width: 40px;
+    height: 40px;
+    background: var(--accent-gradient);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 700;
+}
+
+.contactInfo {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.contactName {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.contactPhone {
+    font-size: 0.8125rem;
+    color: var(--text-muted);
+}
+
+.contactCall {
+    font-size: 1.25rem;
+    text-decoration: none;
+}
+
+/* Deviation Details */
+.deviationDetails {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1rem;
+    background: var(--bg-secondary);
+    border-radius: var(--radius-md);
+    margin-bottom: 1rem;
+}
+
+.deviationDetail {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+}
+
+.deviationNote {
+    font-size: 0.8125rem !important;
+    color: var(--text-muted) !important;
+    margin-bottom: 1.5rem !important;
+}
+
+/* Responsive adjustments for new features */
+@media (max-width: 640px) {
+    .safetyMetrics {
+        grid-template-columns: 1fr;
+    }
+
+    .geoFenceHeader {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+}
