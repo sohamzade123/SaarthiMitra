@@ -15,7 +15,7 @@ export default function PassengerProfilePage() {
 
     // Mock profile data
     const [profileData, setProfileData] = useState({
-        name: user?.name || 'Priya Sharma',
+        name: user?.fullName || 'Priya Sharma',
         email: user?.email || 'priya@passenger.com',
         phone: user?.phone || '+91 98765 43210',
         altPhone: user?.altPhone || '+91 91234 56789',
