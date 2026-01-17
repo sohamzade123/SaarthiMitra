@@ -15,7 +15,7 @@ export default function DriverProfilePage() {
 
     // Mock profile data
     const [profileData, setProfileData] = useState({
-        name: user?.name || 'Rajesh Kumar',
+        name: user?.fullName || 'Rajesh Kumar',
         email: user?.email || 'rajesh@driver.com',
         phone: user?.phone || '+91 98765 43210',
         altPhone: user?.altPhone || '+91 91234 56789',
