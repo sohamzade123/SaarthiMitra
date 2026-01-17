@@ -1,11 +1,7 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
 import { useTheme } from '@/context/ThemeContext';
 import styles from './MapComponent.module.css';
-
-// Mock Google Maps API key - In production, use environment variable
-const GOOGLE_MAPS_API_KEY = 'AIzaSyBDaeWicvigtP9xPv919E-RNoxfvC-Hqik';
 
 interface Location {
     lat: number;
@@ -32,211 +28,143 @@ interface MapComponentProps {
     height?: string;
 }
 
-declare global {
-    interface Window {
-        google: typeof google;
-        initMap: () => void;
-    }
-}
+// Demo Map Icons for different marker types
+const markerIcons: Record<Marker['type'], string> = {
+    mechanic: '🔧',
+    fuel: '⛽',
+    rest: '🛏️',
+    driver: '🚗',
+    user: '📍'
+};
 
 export default function MapComponent({
-    center = { lat: 28.6139, lng: 77.2090 }, // Default: Delhi
-    zoom = 13,
     markers = [],
     showRoute = false,
-    origin,
-    destination,
-    onMarkerClick,
     className = '',
     height = '400px'
 }: MapComponentProps) {
-    const mapRef = useRef<HTMLDivElement>(null);
-    const mapInstanceRef = useRef<google.maps.Map | null>(null);
-    const markersRef = useRef<google.maps.Marker[]>([]);
-    const directionsRendererRef = useRef<google.maps.DirectionsRenderer | null>(null);
     const { theme } = useTheme();
-    const [isLoaded, setIsLoaded] = useState(false);
-    const [loadError, setLoadError] = useState(false);
 
-    // Dark mode map styles
-    const darkMapStyles: google.maps.MapTypeStyle[] = [
-        { elementType: 'geometry', stylers: [{ color: '#1e293b' }] },
-        { elementType: 'labels.text.stroke', stylers: [{ color: '#1e293b' }] },
-        { elementType: 'labels.text.fill', stylers: [{ color: '#94a3b8' }] },
-        { featureType: 'road', elementType: 'geometry', stylers: [{ color: '#334155' }] },
-        { featureType: 'road', elementType: 'labels.text.fill', stylers: [{ color: '#64748b' }] },
-        { featureType: 'water', elementType: 'geometry', stylers: [{ color: '#0f172a' }] },
-        { featureType: 'poi', elementType: 'geometry', stylers: [{ color: '#334155' }] },
-        { featureType: 'poi.park', elementType: 'geometry', stylers: [{ color: '#1e3a2f' }] },
-    ];
-
-    // Load Google Maps script
-    useEffect(() => {
-        if (window.google && window.google.maps) {
-            setIsLoaded(true);
-            return;
-        }
-
-        const existingScript = document.getElementById('google-maps-script');
-        if (existingScript) {
-            existingScript.addEventListener('load', () => setIsLoaded(true));
-            existingScript.addEventListener('error', () => setLoadError(true));
-            return;
-        }
-
-        const script = document.createElement('script');
-        script.id = 'google-maps-script';
-        script.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_API_KEY}&libraries=places`;
-        script.async = true;
-        script.defer = true;
-        script.onload = () => setIsLoaded(true);
-        script.onerror = () => setLoadError(true);
-        document.head.appendChild(script);
-    }, []);
-
-    // Initialize map
-    useEffect(() => {
-        if (!isLoaded || !mapRef.current || loadError) return;
-
-        const map = new window.google.maps.Map(mapRef.current, {
-            center,
-            zoom,
-            styles: theme === 'dark' ? darkMapStyles : [],
-            disableDefaultUI: false,
-            zoomControl: true,
-            mapTypeControl: false,
-            streetViewControl: false,
-            fullscreenControl: true,
-        });
-
-        mapInstanceRef.current = map;
-        directionsRendererRef.current = new window.google.maps.DirectionsRenderer({
-            map,
-            suppressMarkers: false,
-            polylineOptions: {
-                strokeColor: '#0ea5e9',
-                strokeWeight: 5,
-                strokeOpacity: 0.8
-            }
-        });
-    }, [isLoaded, loadError]);
-
-    // Update map theme
-    useEffect(() => {
-        if (mapInstanceRef.current) {
-            mapInstanceRef.current.setOptions({
-                styles: theme === 'dark' ? darkMapStyles : []
-            });
-        }
-    }, [theme]);
-
-    // Update markers
-    useEffect(() => {
-        if (!mapInstanceRef.current || !isLoaded) return;
-
-        // Clear existing markers
-        markersRef.current.forEach(marker => marker.setMap(null));
-        markersRef.current = [];
-
-        // Add new markers
-        markers.forEach(markerData => {
-            const markerIcon = getMarkerIcon(markerData.type);
-
-            const marker = new window.google.maps.Marker({
-                position: markerData.position,
-                map: mapInstanceRef.current,
-                title: markerData.title,
-                icon: markerIcon,
-                animation: window.google.maps.Animation.DROP
-            });
-
-            if (markerData.info) {
-                const infoWindow = new window.google.maps.InfoWindow({
-                    content: `<div style="color:#0f172a;padding:8px"><strong>${markerData.title}</strong><p style="margin:4px 0 0">${markerData.info}</p></div>`
-                });
-
-                marker.addListener('click', () => {
-                    infoWindow.open(mapInstanceRef.current, marker);
-                    onMarkerClick?.(markerData);
-                });
-            }
-
-            markersRef.current.push(marker);
-        });
-    }, [markers, isLoaded, onMarkerClick]);
-
-    // Draw route
-    useEffect(() => {
-        if (!showRoute || !origin || !destination || !directionsRendererRef.current || !isLoaded) return;
-
-        const directionsService = new window.google.maps.DirectionsService();
-
-        directionsService.route(
-            {
-                origin,
-                destination,
-                travelMode: window.google.maps.TravelMode.DRIVING
-            },
-            (result, status) => {
-                if (status === 'OK' && result) {
-                    directionsRendererRef.current?.setDirections(result);
-                }
-            }
-        );
-    }, [showRoute, origin, destination, isLoaded]);
-
-    if (loadError) {
-        return (
-            <div className={`${styles.mapPlaceholder} ${className}`} style={{ height }}>
-                <div className={styles.placeholderContent}>
-                    <div className={styles.mapIcon}>
-                        <svg width="48" height="48" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
-                        </svg>
-                    </div>
-                    <p className={styles.placeholderText}>Map loading...</p>
-                    <p className={styles.placeholderSubtext}>Interactive map will appear here</p>
-                </div>
-            </div>
-        );
-    }
-
-    if (!isLoaded) {
-        return (
-            <div className={`${styles.mapContainer} ${className}`} style={{ height }}>
-                <div className={styles.loading}>
-                    <div className={styles.spinner}></div>
-                    <p>Loading map...</p>
-                </div>
-            </div>
-        );
-    }
+    // Generate sample positions for demo pins
+    const getPinPosition = (index: number, total: number) => {
+        const baseX = 15 + (index * 60) / Math.max(total, 1);
+        const baseY = 30 + ((index % 3) * 20);
+        return { x: Math.min(baseX, 80), y: Math.min(baseY, 70) };
+    };
 
     return (
         <div
-            ref={mapRef}
-            className={`${styles.mapContainer} ${className}`}
+            className={`${styles.demoMapContainer} ${className}`}
             style={{ height }}
-        />
+            data-theme={theme}
+        >
+            {/* Map Grid Background */}
+            <div className={styles.demoMapGrid}>
+                <svg width="100%" height="100%" className={styles.gridSvg}>
+                    <defs>
+                        <pattern id="demoGrid" width="40" height="40" patternUnits="userSpaceOnUse">
+                            <path
+                                d="M 40 0 L 0 0 0 40"
+                                fill="none"
+                                stroke="currentColor"
+                                strokeWidth="0.5"
+                                opacity="0.15"
+                            />
+                        </pattern>
+                    </defs>
+                    <rect width="100%" height="100%" fill="url(#demoGrid)" />
+                </svg>
+            </div>
+
+            {/* Sample Route Line */}
+            {showRoute && (
+                <svg className={styles.routeSvg} viewBox="0 0 100 100" preserveAspectRatio="none">
+                    <path
+                        d="M 10 70 Q 25 50, 40 55 T 70 35 T 90 25"
+                        fill="none"
+                        stroke="var(--accent-primary)"
+                        strokeWidth="3"
+                        strokeLinecap="round"
+                        strokeDasharray="0"
+                        className={styles.routePath}
+                    />
+                    {/* Start point */}
+                    <circle cx="10" cy="70" r="4" fill="var(--success)" className={styles.pulsePin} />
+                    {/* End point */}
+                    <circle cx="90" cy="25" r="4" fill="var(--danger)" className={styles.pulsePin} />
+                </svg>
+            )}
+
+            {/* Demo Markers */}
+            <div className={styles.markersContainer}>
+                {markers.length > 0 ? (
+                    markers.slice(0, 6).map((marker, index) => {
+                        const pos = getPinPosition(index, markers.length);
+                        return (
+                            <div
+                                key={marker.id}
+                                className={styles.demoMarker}
+                                style={{
+                                    left: `${pos.x}%`,
+                                    top: `${pos.y}%`,
+                                    animationDelay: `${index * 150}ms`
+                                }}
+                                title={marker.title}
+                            >
+                                <span className={styles.markerIcon}>
+                                    {markerIcons[marker.type]}
+                                </span>
+                                <span className={styles.markerLabel}>{marker.title}</span>
+                            </div>
+                        );
+                    })
+                ) : (
+                    /* Default demo pins when no markers provided */
+                    <>
+                        <div className={styles.demoMarker} style={{ left: '20%', top: '35%', animationDelay: '0ms' }}>
+                            <span className={styles.markerIcon}>🚗</span>
+                            <span className={styles.markerLabel}>Driver</span>
+                        </div>
+                        <div className={styles.demoMarker} style={{ left: '45%', top: '55%', animationDelay: '150ms' }}>
+                            <span className={styles.markerIcon}>🔧</span>
+                            <span className={styles.markerLabel}>Mechanic</span>
+                        </div>
+                        <div className={styles.demoMarker} style={{ left: '70%', top: '40%', animationDelay: '300ms' }}>
+                            <span className={styles.markerIcon}>⛽</span>
+                            <span className={styles.markerLabel}>Fuel</span>
+                        </div>
+                        <div className={styles.demoMarker} style={{ left: '55%', top: '25%', animationDelay: '450ms' }}>
+                            <span className={styles.markerIcon}>🛏️</span>
+                            <span className={styles.markerLabel}>Rest Stop</span>
+                        </div>
+                    </>
+                )}
+            </div>
+
+            {/* Map Icon Center Decoration */}
+            <div className={styles.mapCenterIcon}>
+                <svg width="48" height="48" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={1.5}
+                        d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"
+                    />
+                </svg>
+            </div>
+
+            {/* Demo Badge */}
+            <div className={styles.demoBadge}>
+                <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                </svg>
+                <span>Demo Map – Live Google Maps enabled in production</span>
+            </div>
+        </div>
     );
-}
-
-function getMarkerIcon(type: Marker['type']): google.maps.Icon {
-    const colors: Record<Marker['type'], string> = {
-        mechanic: '#f59e0b',
-        fuel: '#10b981',
-        rest: '#8b5cf6',
-        driver: '#0ea5e9',
-        user: '#ef4444'
-    };
-
-    return {
-        path: 'M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z',
-        fillColor: colors[type],
-        fillOpacity: 1,
-        strokeColor: '#ffffff',
-        strokeWeight: 2,
-        scale: 1.8,
-        anchor: new window.google.maps.Point(12, 24)
-    };
 }
